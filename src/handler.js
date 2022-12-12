@@ -208,24 +208,23 @@ const removeBookHandler = (request, h) => {
 
   const index = books.findIndex((book) => book.id === id);
 
-  if (index !== 0) {
-    const response = h.response({
-      status: "fail",
-      message: "Buku gagal dihapus. Id tidak ditemukan",
-    });
-
-    response.code(404);
-    return response;
+  if(index !== -1){
+    books.splice(index,1)
+    const response =h.response({
+      status: 'success',
+      message: "Buku berhasil dihapus",
+    })
+    response.code(200)
+    return response
   }
 
-  books.splice(index, 1);
   const response = h.response({
-    status: "success",
-    message: "Buku berhasil dihapus",
+    status: "fail",
+    message: "Buku gagal dihapus. Id tidak ditemukan",
   });
-
-  response.code(200);
+  response.code(404);
   return response;
+
 };
 module.exports = {
   addBookHandler,
